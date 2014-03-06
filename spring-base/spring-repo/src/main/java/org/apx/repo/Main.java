@@ -2,9 +2,7 @@ package org.apx.repo;
 
 import org.apx.helper.AutowireHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Component;
 
 /**
  * Created with IntelliJ IDEA.
@@ -22,8 +20,12 @@ public class Main {
     public static void main(String[] args) {
         new ClassPathXmlApplicationContext("db.xml");
         Main m = new Main();
-        AutowireHelper.autowire(m,m.repo);
-        System.out.println("Count: "+m.repo.count());
+        AutowireHelper.autowire(m);
+        System.out.println("Count: "+m.count());
+    }
+
+    public Object count(){
+        return repo.count();
     }
 
 }
