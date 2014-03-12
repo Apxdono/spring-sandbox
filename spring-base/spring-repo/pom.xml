@@ -14,6 +14,11 @@
 
     <dependencies>
 
+	    <dependency>
+		    <groupId>org.apx</groupId>
+		    <artifactId>commons-utils</artifactId>
+	    </dependency>
+
         <!--Spring dependencies-->
         <dependency>
             <groupId>org.springframework</groupId>
@@ -83,24 +88,18 @@
             <artifactId>bonecp</artifactId>
         </dependency>
 
-
-
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.8.2</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${spring.version}</version>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
         </dependency>
 
         <dependency>

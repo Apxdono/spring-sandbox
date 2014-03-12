@@ -43,11 +43,12 @@ public class DbTest {
     public void createUser(){
         User user = new User();
         User user2 = null;
-        user.setName("Test User One");
+        user.setDisplayName("Test User One");
+        user.setInternalName("Test User One");
         user2 = repo.save(user);
         Assert.assertEquals(user,user2);
         Assert.assertEquals(1,repo.getResultList(User.class).size());
-        Assert.assertEquals(1, repo.getResultList(User.class, null, null, Paging.init(0,10),Sorting.init("name").put("id")).size());
+        Assert.assertEquals(1, repo.getResultList(User.class, null, null, Paging.init(0,10),Sorting.init("displayName").put("id")).size());
 
     }
 }

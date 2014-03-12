@@ -19,45 +19,7 @@ import java.util.UUID;
  */
 @Entity
 @Table(name = "users")
-public class User implements Serializable {
+public class User extends DBObject {
+	private static final long serialVersionUID = 7724216362592390310L;
 
-    String id;
-    String name;
-
-    public User(){
-        id = UUID.randomUUID().toString();
-        name = "";
-    }
-
-    @Id
-    @Column(name = "id",length = 36, nullable = false, unique = true)
-    public String getId() {
-        return id;
-    }
-
-    @Column(name = "name",length = 256,nullable = false)
-    public String getName() {
-        return name;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder().append(id).toHashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if(obj == null) return false;
-        if(!(obj instanceof User)) return false;
-        User u = (User) obj;
-        return new EqualsBuilder().append(this.id,u.id).isEquals();
-    }
 }
