@@ -12,12 +12,14 @@
 
     <modules>
         <module>spring-repo</module>
+        <module>spring-faces</module>
     </modules>
 
     <properties>
         <spring.version>3.2.0.RELEASE</spring.version>
         <servlet-api.version>2.5</servlet-api.version>
         <db.driver.version>9.3-1101-jdbc4</db.driver.version>
+        <jsf.version>2.2.0</jsf.version>
     </properties>
 
     <dependencyManagement>
@@ -117,9 +119,76 @@
                 <scope>provided</scope>
             </dependency>
 
+            <dependency>
+                <groupId>javax.servlet</groupId>
+                <artifactId>jstl</artifactId>
+                <version>1.2</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-web</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <!-- JSR-330 -->
+            <dependency>
+                <groupId>javax.inject</groupId>
+                <artifactId>javax.inject</artifactId>
+                <version>1</version>
+            </dependency>
+
+            <!-- JSF -->
+            <dependency>
+                <groupId>com.sun.faces</groupId>
+                <artifactId>jsf-api</artifactId>
+                <version>${jsf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.sun.faces</groupId>
+                <artifactId>jsf-impl</artifactId>
+                <version>${jsf.version}</version>
+            </dependency>
+
+
+            <dependency>
+                <groupId>javax.servlet.jsp</groupId>
+                <artifactId>jsp-api</artifactId>
+                <version>2.1</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- EL -->
+            <dependency>
+                <groupId>com.sun.el</groupId>
+                <artifactId>el</artifactId>
+            </dependency>
+
+            <dependency>
+                <groupId>javax.el</groupId>
+                <artifactId>el-api</artifactId>
+                <version>2.2</version>
+                <scope>provided</scope>
+            </dependency>
+
+
+            <dependency>
+                <groupId>org.glassfish.web</groupId>
+                <artifactId>el-impl</artifactId>
+                <version>2.2</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- Tomcat 6 need this -->
+            <dependency>
+                <groupId>com.sun.el</groupId>
+                <artifactId>el-ri</artifactId>
+                <version>1.0</version>
+            </dependency>
+
+
             <!-- END UI specific dependencies-->
-
-
 
             <dependency>
                 <groupId>junit</groupId>

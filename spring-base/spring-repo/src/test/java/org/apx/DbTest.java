@@ -47,9 +47,7 @@ public class DbTest {
         user2 = repo.save(user);
         Assert.assertEquals(user,user2);
         Assert.assertEquals(1,repo.getResultList(User.class).size());
-        Sorting sort = new Sorting();
-        sort.put("name");
-        Assert.assertEquals(1, repo.getResultList(User.class, null, null, Paging.init(0,10),sort).size());
+        Assert.assertEquals(1, repo.getResultList(User.class, null, null, Paging.init(0,10),Sorting.init("name").put("id")).size());
 
     }
 }

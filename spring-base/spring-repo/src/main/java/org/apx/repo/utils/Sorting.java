@@ -15,22 +15,34 @@ import java.util.Map;
 public class Sorting implements IQueryProcessor<String> {
     Map<String,SortOrder> sorting;
 
+    public static Sorting init(String field){
+        return init(field,null);
+    }
+
+    public static Sorting init(String field, SortOrder order){
+        Sorting s = new Sorting();
+        s.put(field,order);
+        return s;
+    }
+
     public Sorting(){
         sorting = new LinkedHashMap<String, SortOrder>();
     }
 
-    public void put(String field){
+    public Sorting put(String field){
         put(field,SortOrder.ASC);
+        return this;
     }
 
-    public void put(String field, SortOrder order){
+    public Sorting put(String field, SortOrder order){
         if(StringUtils.isBlank(field)){
-            return;
+            return this;
         }
         if(order == null){
             order = SortOrder.ASC;
         }
         sorting.put(field,order);
+        return this;
     }
 
     @Override

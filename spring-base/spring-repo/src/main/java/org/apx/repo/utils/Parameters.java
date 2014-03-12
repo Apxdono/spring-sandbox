@@ -17,15 +17,22 @@ public class Parameters implements IQueryProcessor<Query> {
 
     Map<String,Object> params;
 
-    public Parameters(){
+    public static Parameters init(String k, Object v){
+        Parameters p = new Parameters();
+        p.put(k,v);
+        return p;
+    }
+
+    protected Parameters(){
         params = new HashMap<String, Object>();
     }
 
-    public void put(String k, Object v){
+    public Parameters put(String k, Object v){
         if(StringUtils.isBlank(k)){
-            return;
+            return this;
         }
         params.put(k,v);
+        return this;
     }
 
 

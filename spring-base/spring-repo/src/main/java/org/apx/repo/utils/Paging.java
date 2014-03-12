@@ -14,7 +14,6 @@ public class Paging implements IQueryProcessor<Query> {
 
     int page;
     int perPage;
-    int total;
 
     public static Paging init(int page, int perPage){
         Paging p = new Paging();
@@ -23,10 +22,9 @@ public class Paging implements IQueryProcessor<Query> {
         return p;
     }
 
-    public Paging(){
+    protected Paging(){
         page = 0;
         perPage = 0;
-        total = 0;
     }
 
     public int getPage() {
@@ -37,9 +35,6 @@ public class Paging implements IQueryProcessor<Query> {
         return perPage;
     }
 
-    public int getTotal() {
-        return total;
-    }
 
     public void setPage(int page) {
         this.page = page;
@@ -49,9 +44,6 @@ public class Paging implements IQueryProcessor<Query> {
         this.perPage = perPage;
     }
 
-    public void setTotal(int total) {
-        this.total = total;
-    }
 
 
     @Override
