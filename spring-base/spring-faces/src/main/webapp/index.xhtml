@@ -13,6 +13,7 @@
 <h:body>
 
     <h1>#{sessionBean.greeting}</h1>
+    <h2>View bean says: #{userBean.userName}</h2>
 
     <h:panelGrid id="useless" columns="2" >
         <h:outputText value="HELLO!!! this text is in h:inputText inside of h:panelGrid. Check that it's rendered html table tag and not some kind of bs..." />
@@ -27,6 +28,9 @@
 
         <h:outputText style="margin:20px 0px; display:block; color:dodgerblue; font-weight: bold" value="Plz don't click or i'll disappear" rendered="#{sessionBean.renderHidden}"/>
     </h:form>
+
+
+    <h:outputLink value="back.jsf" >Go to the back page.</h:outputLink>
 
 
 </h:body>

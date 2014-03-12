@@ -161,11 +161,6 @@
 
             <!-- EL -->
             <dependency>
-                <groupId>com.sun.el</groupId>
-                <artifactId>el</artifactId>
-            </dependency>
-
-            <dependency>
                 <groupId>javax.el</groupId>
                 <artifactId>el-api</artifactId>
                 <version>2.2</version>

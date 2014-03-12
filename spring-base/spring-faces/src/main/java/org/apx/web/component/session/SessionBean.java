@@ -23,14 +23,11 @@ import java.io.Serializable;
  * To change this template use File | Settings | File Templates.
  */
 @Component
-//@ManagedBean
-//@SessionScoped
-//@ViewScoped
-@Named
-@Scope("view")
+@ManagedBean
+@SessionScoped
 public class SessionBean implements Serializable {
 
-    static Logger LOG = LoggerFactory.getLogger("spring.test");
+    static Logger LOG = LoggerFactory.getLogger(SessionBean.class);
 
     @Inject
     CommonRepo repo;
@@ -39,18 +36,28 @@ public class SessionBean implements Serializable {
 
     @PostConstruct
     public void init(){
-        LOG.info("Bean: {}, DB connected? {}",toString(),repo.checkConnection());
+        LOG.debug("Bean: {}, DB connected? {}", toString(), repo.checkConnection());
         renderHidden = false;
     }
 
     public String getGreeting(){
-        return "Hello from view bean.";
+        return "Hello from session bean.";
     }
 
     public void tryMe(AjaxBehaviorEvent event) {
         renderHidden = !renderHidden;
+	    LOG.debug("Bean: {}, sho message?? {}",toString(),renderHidden);
     }
 
+	public void changeLogLevelToDebug(AjaxBehaviorEvent e){
+
+
+	}
+
+	public void changeLogLevelToInfo(AjaxBehaviorEvent e){
+
+	}
+	
 
     public boolean isRenderHidden() {
         return renderHidden;

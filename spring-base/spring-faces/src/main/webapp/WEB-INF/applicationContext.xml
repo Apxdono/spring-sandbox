@@ -7,16 +7,8 @@
 	http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
     <import resource="classpath:db.xml" />
-    <context:component-scan base-package="org.apx.web.component"/>
+    <import resource="classpath:spring-jsf-scopes.xml" />
 
-    <bean class="org.springframework.beans.factory.config.CustomScopeConfigurer">
-        <property name="scopes">
-            <map>
-                <entry key="view">
-                    <bean class="org.apx.web.impl.scope.ViewScope" />
-                </entry>
-            </map>
-        </property>
-    </bean>
+    <context:component-scan base-package="org.apx.web.component"/>
 
 </beans>
