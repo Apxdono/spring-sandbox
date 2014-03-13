@@ -1,6 +1,7 @@
 package org.apx.repo;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apx.repo.handler.HandlerProcessor;
 import org.apx.repo.utils.IQueryProcessor;
 import org.apx.repo.utils.Paging;
 import org.apx.repo.utils.Parameters;
@@ -41,16 +42,31 @@ public class CommonRepo {
         return StringUtils.equals(expected, res.toString());
     }
 
-    public Object count() {
-        String query = "SELECT Count(1) from task";
-        return em.createNativeQuery(query).getSingleResult();
-    }
+	public <E> E find(Object id,Class<E> klass){
+		return find(id, klass,false);
+	}
+
+	public <E> E find(Object id,Class<E> klass, boolean loadLazy){
+		E result = em.find(klass,id);
+		if(loadLazy){
+			result = HandlerProcessor.processLazyObjects(result,this);
+		}
+		return result;
+	}
 
     @Transactional(readOnly = false,propagation = Propagation.REQUIRED)
     public <E> E save(E entity) {
         em.persist(entity);
         return entity;
     }
+
+	@Transactional(readOnly = false,propagation = Propagation.REQUIRED)
+	public <E> E update(E entity) {
+		entity = em.merge(entity);
+		return entity;
+	}
+
+
 
     public <E> List<E> getResultList(Class<E> klass) {
         return getResultList(klass, null, null);

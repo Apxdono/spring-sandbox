@@ -3,6 +3,7 @@ package org.apx.web.component.session;
 import org.apx.repo.CommonRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -10,9 +11,11 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import java.io.Serializable;
 
 /**
@@ -22,14 +25,13 @@ import java.io.Serializable;
  * Time: 17:19
  * To change this template use File | Settings | File Templates.
  */
-@Component
-@ManagedBean
-@SessionScoped
+@Named
+@Scope("session")
 public class SessionBean implements Serializable {
 
     static Logger LOG = LoggerFactory.getLogger(SessionBean.class);
 
-    @Inject
+    @Autowired
     CommonRepo repo;
 
     boolean renderHidden;
@@ -41,7 +43,11 @@ public class SessionBean implements Serializable {
     }
 
     public String getGreeting(){
-        return "Hello from session bean.";
+	    FacesContext fCtx = FacesContext.getCurrentInstance();
+	    HttpSession session = (HttpSession) fCtx.getExternalContext().getSession(false);
+	    String sessionId = session.getId();
+	    LOG.debug("Session ID: {}",sessionId);
+	    return "Hello from session bean.";
     }
 
     public void tryMe() {

@@ -1,6 +1,8 @@
 package org.apx.model;
 
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apx.model.handlers.DBObjectLazyHandler;
+import org.apx.repo.handler.LazyInitHandler;
 import org.apx.utils.Generator;
 
 import javax.persistence.Column;
@@ -13,6 +15,7 @@ import java.io.Serializable;
  * Created by oleg on 3/13/14.
  */
 @MappedSuperclass
+@LazyInitHandler(handlerClass = DBObjectLazyHandler.class)
 public abstract class DBObject implements Serializable {
 	private static final long serialVersionUID = 2425658928079456714L;
 

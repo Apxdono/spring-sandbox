@@ -51,4 +51,22 @@ public class DbTest {
         Assert.assertEquals(1, repo.getResultList(User.class, null, null, Paging.init(0,10),Sorting.init("displayName").put("id")).size());
 
     }
+
+	@Test
+	@Rollback
+	public void checkHandler(){
+		User user = new User();
+		String id = user.getId();
+		User user2 = null;
+		User user3 = null;
+		User user4 = null;
+		user.setDisplayName("Test User One");
+		user.setInternalName("Test User One");
+		user2 = repo.save(user);
+		user3 = repo.find(id,User.class);
+		user4 = repo.find(id,User.class,true);
+		Assert.assertEquals(user,user2);
+		Assert.assertEquals(user,user3);
+		Assert.assertEquals(user,user4);
+	}
 }
