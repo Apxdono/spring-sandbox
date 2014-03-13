@@ -5,6 +5,7 @@ import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.annotation.AnnotationScopeMetadataResolver;
 import org.springframework.context.annotation.ScopeMetadata;
 
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
@@ -31,6 +32,10 @@ public class JavaxFacesScopeMetadataResolver
 					ViewScoped.class.getName())
 					) {
 				metadata.setScopeName("view");
+			}else if (annotationTypes.contains(
+					ApplicationScoped.class.getName())
+					) {
+				metadata.setScopeName("singleton");
 			} else {
 				return super.resolveScopeMetadata(definition);
 			}
