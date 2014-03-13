@@ -9,9 +9,8 @@ Tested on Tomcat 7.
 Deploy procedure
 =============
 
-
 1. Do mvn install on projects 'commons-utils' and 'spring-jsf-scopes'
-2. Check db.xml and db.properties in 'spring-repo' project and verify that your databases are up and running
-3. Build and deploy on tomcat (or via IDE like Intellij IDEA, Eclipse etc.)
+2. Check db.xml and db.properties in 'spring-repo' of 'spring-base' project and verify that your databases are up and running
+3. Build 'spring-base' and deploy resulting war in 'spring-faces'  on tomcat (or via IDE like Intellij IDEA, Eclipse etc.)
 4. 99% Profit 
 

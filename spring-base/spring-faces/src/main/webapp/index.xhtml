@@ -3,36 +3,47 @@
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
-        >
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Spring test app
     </title>
 </h:head>
 
 <h:body>
+    <ui:composition template="/WEB-INF/templates/templateMenu.xhtml">
+        <ui:define name="content">
+            <h1>#{sessionBean.greeting}</h1>
 
-    <h1>#{sessionBean.greeting}</h1>
-    <h2>View bean says that entity id is now: #{userBean.entity.id}</h2>
+            <h2>View bean says that entity id is now: #{userBean.entity.id}</h2>
 
-    <h:panelGrid id="useless" columns="2" >
-        <h:outputText value="HELLO!!! this text is in h:inputText inside of h:panelGrid. Check that it's rendered html table tag and not some kind of bs..." />
-    </h:panelGrid>
+            <h:panelGrid id="useless" columns="2">
+                <h:outputText
+                        value="HELLO!!! this text is in h:inputText inside of h:panelGrid. Check that it's rendered html table tag and not some kind of bs..."/>
+            </h:panelGrid>
 
-    <h:form id="form">
-        <h:outputText value="Ajax also works." />    <br/>
+            <h:form id="form">
+                <h:outputText value="Ajax also works."/> <br/>
 
-        <h:commandButton value="#{not sessionBean.renderHidden ? 'Show it!' : 'Hide it!'}" type="button" >
-            <f:ajax event="click" listener="#{sessionBean.tryMe}" render="form" />
-        </h:commandButton> <br/>
-
-        <h:outputText style="margin:20px 0px; display:block; color:dodgerblue; font-weight: bold" value="Plz don't click or i'll disappear" rendered="#{sessionBean.renderHidden}"/>
-    </h:form>
-
-
-    <h:outputLink value="back.jsf" >Go to the back page.</h:outputLink>
+                <p:commandButton id="btn" value="#{not sessionBean.renderHidden ? 'Show it!' : 'Hide it!'}"
+                                 actionListener="#{sessionBean.tryMe}" update="form" immediate="true" process="@this"/>
+                <br/>
 
 
+                <h:outputText style="margin:20px 0px; display:block; color:dodgerblue; font-weight: bold"
+                              value="Plz don't click or i'll disappear" rendered="#{sessionBean.renderHidden}"/>
+            </h:form>
+
+
+            <h:outputLink value="back.jsf">Go to the back page.</h:outputLink>
+
+            <p:fieldset legend="fieldset" toggleable="true">
+                Content
+            </p:fieldset>
+
+        </ui:define>
+    </ui:composition>
 </h:body>
 
 </html>

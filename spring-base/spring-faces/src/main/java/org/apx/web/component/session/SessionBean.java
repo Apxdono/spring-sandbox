@@ -44,7 +44,7 @@ public class SessionBean implements Serializable {
         return "Hello from session bean.";
     }
 
-    public void tryMe(AjaxBehaviorEvent event) {
+    public void tryMe() {
         renderHidden = !renderHidden;
 	    LOG.debug("Bean: {}, show message?? {}",toString(),renderHidden);
     }

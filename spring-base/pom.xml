@@ -15,6 +15,15 @@
         <module>spring-faces</module>
     </modules>
 
+    <repositories>
+        <repository>
+            <id>prime-repo</id>
+            <name>PrimeFaces Maven Repository</name>
+            <url>http://repository.primefaces.org</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+
     <properties>
         <spring.version>3.2.0.RELEASE</spring.version>
         <servlet-api.version>2.5</servlet-api.version>
