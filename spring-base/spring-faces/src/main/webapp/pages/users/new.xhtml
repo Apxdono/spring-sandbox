@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Spring test app
+    </title>
+</h:head>
+
+<h:body>
+    <ui:composition template="/WEB-INF/templates/templateMenu.xhtml">
+        <ui:define name="content">
+            <h:form id="form" prependId="false">
+                <p:growl id="errors" sticky="true"/>
+                <p:panelGrid columns="3" style="width: 100%">
+                    <p:outputLabel value="Name :" />
+                    <p:inputText id="name" value="#{userBean.entity.displayName}" required="true" label="Name"/>
+                    <p:message for="name" />
+
+                    <p:outputLabel value="Login :" />
+                    <p:inputText id="login" value="#{userBean.entity.internalName}" required="true" label="Login"/>
+                    <p:message for="login" />
+
+                    <p:outputLabel value="Is Active :" />
+                    <p:selectBooleanCheckbox value="#{userBean.entity.active}" />
+
+                    <f:facet name="footer" >
+                        <p:commandButton value="Save" action="#{userBean.save}" update="errors" />
+                        <p:button value="Cancel" href="list.jsf" />
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

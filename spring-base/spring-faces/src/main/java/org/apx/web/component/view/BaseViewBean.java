@@ -44,4 +44,15 @@ public abstract class BaseViewBean<T extends DBObject> implements Serializable {
 	public void setEntity(T entity) {
 		this.entity = entity;
 	}
+
+	public String save(){
+		repo.save(entity);
+		return "list.jsf?faces-redirect=true";
+	}
+
+	public String update(){
+		repo.save(entity);
+		return "view.jsf?faces-redirect=true&id="+entity.getId();
+	}
+
 }

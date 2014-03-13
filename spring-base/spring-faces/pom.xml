@@ -23,7 +23,7 @@
 	    <dependency>
 		    <groupId>org.apx.spring-jsf</groupId>
 		    <artifactId>spring-jsf-scopes</artifactId>
-		    <version>1.0-SNAPSHOT</version>
+		    <version>1.1-SNAPSHOT</version>
 	    </dependency>
 
         <!--Spring dependencies-->
@@ -106,7 +106,7 @@
         <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>4.0</version>
+            <version>3.5</version>
         </dependency>
 
         <dependency>

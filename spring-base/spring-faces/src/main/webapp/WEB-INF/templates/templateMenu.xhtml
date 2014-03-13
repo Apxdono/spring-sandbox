@@ -4,15 +4,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
       xmlns:h="http://java.sun.com/jsf/html">
 <h:body>
     <ui:composition template="/WEB-INF/templates/template.xhtml">
         <ui:define name="menu">
-            <ul>
-                <li>A</li>
-                <li>B</li>
-                <li>C</li>
-            </ul>
+            <h:form id="menuform" prependId="false">
+	            <ul>
+	                <li><p:commandLink ajax="false" value="Index"/></li>
+	                <li><h:outputLink value="#{request.contextPath}/">Index</h:outputLink></li>
+	                <li><h:outputLink value="#{request.contextPath}/pages/users/list.jsf">Users</h:outputLink></li>
+	            </ul>
+            </h:form>
         </ui:define>
     </ui:composition>
 </h:body>

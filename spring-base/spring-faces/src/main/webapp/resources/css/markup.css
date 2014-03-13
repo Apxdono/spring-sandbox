@@ -1,5 +1,14 @@
 body{
-    font-size: 14px;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 0.9em;
+}
+
+a {
+    font:inherit;
+}
+
+.ui-widget{
+    font-size: 1em;
 }
 
 .page {

@@ -6,9 +6,12 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
-    <import resource="classpath:db.xml" />
-    <import resource="classpath:spring-jsf-scopes.xml" />
+	<import resource="classpath:db.xml"/>
+	<import resource="classpath:spring-jsf-scopes.xml"/>
 
-    <context:component-scan base-package="org.apx.web.component"/>
+	<context:component-scan base-package="org.apx.web.component"
+	                        scope-resolver="org.apx.spring.jsf.impl.JavaxFacesScopeMetadataResolver">
+		<context:include-filter type="annotation" expression="javax.faces.bean.ManagedBean"/>
+	</context:component-scan>
 
 </beans>
