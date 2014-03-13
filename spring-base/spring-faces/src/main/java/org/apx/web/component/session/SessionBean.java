@@ -3,8 +3,6 @@ package org.apx.web.component.session;
 import org.apx.repo.CommonRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -22,8 +20,6 @@ import java.io.Serializable;
  * Time: 17:19
  * To change this template use File | Settings | File Templates.
  */
-//@Component
-//@Lazy
 @ManagedBean
 @SessionScoped
 public class SessionBean implements Serializable {
