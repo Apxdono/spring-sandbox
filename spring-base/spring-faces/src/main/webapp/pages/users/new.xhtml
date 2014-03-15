@@ -5,6 +5,7 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:my="http://java.sun.com/jsf/composite/components"
       xmlns:p="http://primefaces.org/ui">
 <h:head>
     <title>Spring test app
@@ -16,20 +17,24 @@
         <ui:define name="content">
             <h:form id="form" prependId="false">
                 <p:growl id="errors" sticky="true"/>
-                <p:panelGrid columns="3" style="width: 100%">
-                    <p:outputLabel value="Name :" />
-                    <p:inputText id="name" value="#{userBean.entity.displayName}" required="true" label="Name"/>
-                    <p:message for="name" />
+                <p:fieldset toggleable="false" collapsed="false" legend="User info" styleClass="fieldset-group">
+                    <p:panelGrid columns="2" styleClass="form-table">
+                        <p:outputLabel value="Name" for="name"/>
+                        <p:inputText id="name" value="#{userBean.entity.displayName}" required="true"/>
 
-                    <p:outputLabel value="Login :" />
-                    <p:inputText id="login" value="#{userBean.entity.internalName}" required="true" label="Login"/>
-                    <p:message for="login" />
+                        <ui:fragment>
+                            <p:outputLabel id="login-lbl" value="Login" for="login"/>
+                            <my:tip tooltip="The name to authorize in the system"/>
+                        </ui:fragment>
+                        <p:inputText id="login" value="#{userBean.entity.internalName}" required="true" label="Login"/>
 
-                    <p:outputLabel value="Is Active :" />
-                    <p:selectBooleanCheckbox value="#{userBean.entity.active}" />
-
+                        <p:outputLabel value="Is Active" for="active"/>
+                        <p:selectBooleanCheckbox id="active" value="#{userBean.entity.active}"/>
+                    </p:panelGrid>
+                </p:fieldset>
+                <p:panelGrid columns="2" styleClass="form-table actions">
                     <f:facet name="footer" >
-                        <p:commandButton value="Save" action="#{userBean.save}" update="errors" />
+                        <p:commandButton value="Save" action="#{userBean.save}" update="form" />
                         <p:button value="Cancel" href="list.jsf" />
                     </f:facet>
                 </p:panelGrid>

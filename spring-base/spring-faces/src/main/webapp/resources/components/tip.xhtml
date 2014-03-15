@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite" xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+    <style>
+
+    </style>
+</h:head>
+<composite:interface>
+    <composite:attribute name="tooltip"/>
+
+</composite:interface>
+
+    <composite:implementation>
+        <p:outputLabel id="#{cc.id}_q" value="?" styleClass="question-tip"/>
+        <p:tooltip for="#{cc.id}_q" value="#{cc.attrs.tooltip}" hideEvent="blur" />
+    </composite:implementation>
+</html>

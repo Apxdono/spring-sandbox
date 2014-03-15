@@ -1,0 +1,34 @@
+.ui-widget{
+    font-size: 1em;
+}
+
+.ui-panelgrid{
+    background: white;
+}
+
+.ui-panelgrid tr.ui-widget-content, .ui-panelgrid tr.ui-widget-content td{
+    border : none;
+}
+
+.ui-panelgrid-footer tr.ui-widget-header,.ui-panelgrid-footer tr.ui-widget-header td {
+    background: none;
+    border:none;
+}
+
+.ui-panelgrid-footer tr.ui-widget-header td  button{
+    margin-left: -1px;
+    margin-right: 5px;
+}
+
+fieldset.ui-fieldset.fieldset-group legend.ui-fieldset-legend{
+    border: none;
+    background: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: none;
+    color: dodgerblue;
+}
+
+fieldset.ui-fieldset.fieldset-group a{
+    color:dodgerblue;
+}
