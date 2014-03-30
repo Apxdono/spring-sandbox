@@ -67,6 +67,27 @@ public abstract class ReflectionUtils {
 	}
 
 
+    public static Object getFieldValue(Object target,String fieldName){
+        if(target == null){
+            LOG.warn("Target entity is null. Cannot get field value");
+            return null;
+        }
+
+        Field f = field(target.getClass(),fieldName,null,null);
+        if(f == null){
+            return null;
+        }
+        f.setAccessible(true);
+        Object result = null;
+        try {
+            result = f.get(target);
+        } catch (IllegalAccessException e) {
+            LOG.error("Cannot access field value. Returning null.",e);
+        }
+        return result;
+    }
+
+
 	public static Class<?> getParameterClassSimple(Class<?> target, int parameterIndex) {
 		if (target == null) {
 			LOG.warn("No target class passed to get parameter class.");

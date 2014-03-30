@@ -20,21 +20,21 @@
                 <p:fieldset toggleable="false" collapsed="false" legend="User info" styleClass="fieldset-group">
                     <p:panelGrid columns="2" styleClass="form-table">
                         <p:outputLabel value="Name" for="name"/>
-                        <p:inputText id="name" value="#{userBean.entity.displayName}" required="true"/>
+                        <p:inputText id="name" value="#{userBean.entity.displayName}" readonly="true"/>
 
-                        <ui:fragment>
-                            <p:outputLabel id="login-lbl" value="Login" for="login"/>
-                            <my:tip tooltip="The name to authorize in the system"/>
-                        </ui:fragment>
-                        <p:inputText id="login" value="#{userBean.entity.internalName}" required="true" label="Login"/>
+                        <p:outputLabel id="login-lbl" value="Login" for="login"/>
+                        <p:inputText id="login" value="#{userBean.entity.internalName}" label="Login" readonly="true"/>
 
                         <p:outputLabel value="Is Active" for="active"/>
-                        <p:selectBooleanCheckbox id="active" value="#{userBean.entity.active}"/>
+                        <p:inputText id="active" value="#{userBean.entity.active ? 'Yes' : 'No'}" readonly="true"/>
+
                     </p:panelGrid>
                 </p:fieldset>
                 <p:panelGrid columns="2" styleClass="form-table actions">
                     <f:facet name="footer" >
-                        <p:commandButton value="Save" action="#{userBean.save}" update="form" />
+                        <p:commandButton value="Edit" action="#{navigation.editPage}">
+                            <f:attribute name="target" value="#{userBean.entity}" />
+                        </p:commandButton>
                         <p:commandButton value="List" action="#{navigation.listPage}" immediate="true"/>
                     </f:facet>
                 </p:panelGrid>

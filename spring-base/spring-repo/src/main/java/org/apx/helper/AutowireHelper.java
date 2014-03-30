@@ -17,7 +17,7 @@ public final class AutowireHelper implements ApplicationContextAware {
 
     /**
      * Tries to autowire the specified instance of the class
-     * @param classToAutowire the instance of the class which holds @Autowire annotations
+     * @param classToAutowire the instance of the class which holds @Autowire annotation
      */
     public static void autowire(Object classToAutowire) {
         applicationContext.getAutowireCapableBeanFactory().autowireBean(classToAutowire);

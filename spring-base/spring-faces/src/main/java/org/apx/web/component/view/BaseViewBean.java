@@ -1,12 +1,15 @@
 package org.apx.web.component.view;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apx.model.DBObject;
 import org.apx.repo.CommonRepo;
 import org.apx.utils.ReflectionUtils;
+import org.apx.web.component.request.NavigationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.Serializable;
 
@@ -14,45 +17,64 @@ import java.io.Serializable;
  * Created by oleg on 3/13/14.
  */
 public abstract class BaseViewBean<T extends DBObject> implements Serializable {
-	private static final long serialVersionUID = 3273486737438981080L;
+    private static final long serialVersionUID = 3273486737438981080L;
 
-	Logger logger = LoggerFactory.getLogger(getClass());
-	T entity;
-	Class<T> entityClass;
+    Logger logger = LoggerFactory.getLogger(getClass());
+    T entity;
+    Class<T> entityClass;
 
-	@Inject
-	CommonRepo repo;
+    @Inject
+    CommonRepo repo;
 
-	@PostConstruct
-	public void init(){
-		logger.debug("Initialized bean '{}'",toString());
-		entityClass = (Class<T>) ReflectionUtils.getParameterClassSimple(getClass(), 0);
-		processParameters();
-		if(entity == null){
-			entity = ReflectionUtils.newInstance(entityClass);
-		}
-	}
+    @Inject
+    NavigationBean nav;
 
-	protected void processParameters(){
+    @PostConstruct
+    public void init() {
+        logger.debug("Initialized bean '{}'", toString());
+        entityClass = (Class<T>) ReflectionUtils.getParameterClassSimple(getClass(), 0);
+        processParameters();
+        if (entity == null) {
+            entity = ReflectionUtils.newInstance(entityClass);
+        }
+    }
 
-	}
+    protected void processParameters() {
+        if (FacesContext.getCurrentInstance().isPostback()) {
+            return;
+        }
+        String id = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("id");
+        if (StringUtils.isNotBlank(id)) {
+            entity = repo.find(id,entityClass);
+        } else {
 
-	public T getEntity() {
-		return entity;
-	}
+        }
 
-	public void setEntity(T entity) {
-		this.entity = entity;
-	}
 
-	public String save(){
-		repo.save(entity);
-		return "list.jsf?faces-redirect=true";
-	}
+    }
 
-	public String update(){
-		repo.save(entity);
-		return "view.jsf?faces-redirect=true&id="+entity.getId();
-	}
+    public T getEntity() {
+        return entity;
+    }
+
+    public void setEntity(T entity) {
+        this.entity = entity;
+    }
+
+    public String save() {
+        repo.save(entity);
+        return nav.listPage();
+    }
+
+    public String update() {
+        repo.update(entity);
+        return nav.viewPage(entity,true);
+    }
+
+    public String delete(){
+        entity.setActive(false);
+        repo.update(entity);
+        return nav.listPage();
+    }
 
 }

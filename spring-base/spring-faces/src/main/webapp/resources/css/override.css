@@ -32,3 +32,9 @@ fieldset.ui-fieldset.fieldset-group legend.ui-fieldset-legend{
 fieldset.ui-fieldset.fieldset-group a{
     color:dodgerblue;
 }
+
+
+input.ui-inputfield.ui-inputtext[readonly="readonly"]{
+    border: 1px solid transparent;
+    box-shadow: none;
+}

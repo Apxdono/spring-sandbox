@@ -15,9 +15,7 @@
     <ui:composition template="/WEB-INF/templates/templateMenu.xhtml">
         <ui:define name="content">
             <h:form id="form" prependId="false">
-	            <p:button value="Add new user" href="new.jsf"/>
-	            <br/>
-	            <p:dataTable id="table" value="#{userBean.model}" var="item">
+	            <p:dataTable id="table" value="#{userBean.model}" var="item" rowKey="#{item.id}" selectionMode="single" selection="#{userBean.entity}">
 	                <p:column headerText="Name">
 	                    <h:outputText value="#{item.displayName}" />
 	                </p:column>
@@ -27,7 +25,24 @@
 	                <p:column headerText="Is active">
 	                    <h:outputText value="#{item.active}" />
 	                </p:column>
-	            </p:dataTable>
+
+                    <f:facet name="footer">
+                        <div style="width:100%;text-align: left;">
+                            <p:commandButton id="newButton" value="New" icon="ui-icon-document" action="#{navigation.newPage}" >
+                            </p:commandButton>
+                            <p:commandButton id="viewButton" value="View" icon="ui-icon-search" action="#{navigation.viewPage}" >
+                                <f:attribute name="target" value="#{userBean.entity}" />
+                            </p:commandButton>
+                            <p:commandButton id="editButton" value="Edit" icon="ui-icon-pencil" action="#{navigation.editPage}" >
+                                <f:attribute name="target" value="#{userBean.entity}" />
+                            </p:commandButton>
+
+                            <p:commandButton id="deleteButton" value="Delete" icon="ui-icon-trash" action="#{userBean.delete}" >
+
+                            </p:commandButton>
+                        </div>
+                    </f:facet>
+                </p:dataTable>
             </h:form>
         </ui:define>
     </ui:composition>
