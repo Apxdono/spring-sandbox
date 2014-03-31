@@ -132,6 +132,12 @@
                 <version>0.8.0.RELEASE</version>
             </dependency>
 
+	        <dependency>
+		        <groupId>com.github.briandilley.jsonrpc4j</groupId>
+		        <artifactId>jsonrpc4j</artifactId>
+		        <version>1.0</version>
+	        </dependency>
+
 
             <!-- UI specific dependencies-->
             <dependency>

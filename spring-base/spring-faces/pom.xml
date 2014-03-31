@@ -26,6 +26,12 @@
 		    <version>1.1-SNAPSHOT</version>
 	    </dependency>
 
+
+	    <dependency>
+		    <groupId>com.github.briandilley.jsonrpc4j</groupId>
+		    <artifactId>jsonrpc4j</artifactId>
+	    </dependency>
+
         <!--Spring dependencies-->
         <dependency>
             <groupId>org.springframework</groupId>

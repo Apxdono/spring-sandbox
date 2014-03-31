@@ -30,8 +30,6 @@ public class HelloServiceImpl implements HelloService {
     @Transactional(readOnly = true)
     public int countUsers() throws RemoteException {
         Number n = (Number) repo.createQuery(Number.class,"SELECT COUNT(i) FROM User i",null,null,null).getSingleResult();
-
-
         return n.intValue();
     }
 }
