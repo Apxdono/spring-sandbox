@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apx.model.DBObject;
 import org.apx.repo.CommonRepo;
 import org.apx.utils.ReflectionUtils;
+import org.apx.web.component.model.LazyModel;
 import org.apx.web.component.request.NavigationBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,8 @@ public abstract class BaseViewBean<T extends DBObject> implements Serializable {
     @Inject
     NavigationBean nav;
 
+    LazyModel<T> lazyModel;
+
     @PostConstruct
     public void init() {
         logger.debug("Initialized bean '{}'", toString());
@@ -50,7 +53,18 @@ public abstract class BaseViewBean<T extends DBObject> implements Serializable {
 
         }
 
+    }
 
+    public LazyModel<T> getLazyModel() {
+        if(lazyModel == null){
+            lazyModel = new LazyModel<T>(repo,entityClass);
+        }
+
+        return lazyModel;
+    }
+
+    public void setLazyModel(LazyModel<T> lazyModel) {
+        this.lazyModel = lazyModel;
     }
 
     public T getEntity() {
@@ -71,10 +85,9 @@ public abstract class BaseViewBean<T extends DBObject> implements Serializable {
         return nav.viewPage(entity,true);
     }
 
-    public String delete(){
+    public void delete(){
         entity.setActive(false);
         repo.update(entity);
-        return nav.listPage();
     }
 
 }
