@@ -15,4 +15,5 @@ var toggleMenu = function(elem){
         addClass(hideButton , 'arrow-right');
         removeClass(hideButton , 'arrow-left');
     }
+    Cookies.set('sideMenuVisible', !hasClass(menu,'menu-hidden'));
 }

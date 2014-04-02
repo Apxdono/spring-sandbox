@@ -33,6 +33,12 @@ fieldset.ui-fieldset.fieldset-group a{
     color:dodgerblue;
 }
 
+fieldset.ui-fieldset.fieldset-group{
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+}
+
 
 input.ui-inputfield.ui-inputtext[readonly="readonly"]{
     border: 1px solid transparent;
