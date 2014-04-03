@@ -4,7 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core">
 <h:head>
     <title>Spring test app
     </title>
@@ -18,7 +19,21 @@
 </h:head>
 
 <h:body>
-    <p:dialog></p:dialog>
+
+    <h:form id="session-form">
+        <p:confirmDialog header="Session expired" severity="alert"
+                         widgetVar="sessionDialog">
+            <f:facet name="message">
+                <h:outputText value="Your session has expired. Do you want to reload page now?" /><br/>
+                <h:outputText value="Press 'No' if you want to do it manually later." />
+            </f:facet>
+            <p:commandButton value="Yes" oncomplete="sessionDialog.hide();location.reload();"/>
+            <p:commandButton value="No" onclick="sessionDialog.hide();" type="button"/>
+        </p:confirmDialog>
+
+        <p:ajaxStatus onerror="sessionExpirationCheck(arguments[1],sessionDialog);"/>
+    </h:form>
+
     <div id="page" class="page">
         <div id="breadcrumbs" class="breadcrumbs markup-padding">BREADCRUMBS</div>
         <div id="menu" class="menu #{not cookieMosta.menuVisible ? 'menu-hidden' : ''}">

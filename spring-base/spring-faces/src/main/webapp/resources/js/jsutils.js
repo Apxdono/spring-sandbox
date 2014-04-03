@@ -45,3 +45,11 @@ function removeClass(el,className){
         return;
     }
 }
+
+function sessionExpirationCheck(response,dialog){
+    if(response.responseText){
+        if(response.responseText.indexOf("sessionExpired")!=-1){
+            dialog.show();
+        }
+    }
+}

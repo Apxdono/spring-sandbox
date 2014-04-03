@@ -17,10 +17,17 @@
             <p:fieldset legend="User list" styleClass="fieldset-group" toggleable="false" collapsed="false">
                 <h:form id="form" prependId="false">
                     <p:dataTable id="table" value="#{userBean.lazyModel}" lazy="true" var="item" rowKey="#{item.id}"
-                                 selectionMode="single" selection="#{userBean.entity}" rows="10" paginator="true"
+                                 selectionMode="single" selection="#{userBean.entity}" rows="10" paginator="true" widgetVar="listTable"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
                 {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
-                        <p:column headerText="Name">
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Search all fields:" />
+                                <h:inputText id="globalFilter" onkeyup="listTable.filter()" />
+                            </p:outputPanel>
+                        </f:facet>
+
+                        <p:column headerText="Name" sortBy="#{item.displayName}" filterBy="#{item.displayName}" >
                             <h:outputText value="#{item.displayName}"/>
                         </p:column>
                         <p:column headerText="Login">
@@ -29,7 +36,7 @@
                         <p:column headerText="Is active">
                             <h:outputText value="#{item.active}"/>
                         </p:column>
-
+                        <p:ajax event="rowSelect" update=":form:deleteDialog"/>
                         <f:facet name="footer">
                             <div style="width:100%;text-align: left;">
                                 <p:commandButton id="newButton" value="New" icon="ui-icon-document"
@@ -52,7 +59,7 @@
                         </f:facet>
                     </p:dataTable>
 
-                    <p:confirmDialog message="Are you sure you want to delete this record?"
+                    <p:confirmDialog id="deleteDialog" message="Are you sure you want to delete this record?"
                                      header="Deleting user #{userBean.entity.displayName}" severity="alert"
                                      widgetVar="dlg">
 
