@@ -12,8 +12,8 @@
             <h:form id="menuform" prependId="false">
                 <p:fieldset toggleable="false" collapsed="false" legend="Menu" styleClass="fieldset-group">
                     <ul class="side-menu">
-	                    <li><p:commandLink ajax="false" value="Index"/></li>
 	                    <li><h:outputLink value="#{request.contextPath}/">Index</h:outputLink></li>
+	                    <li><h:outputLink value="#{request.contextPath}/pages/admin/loggers.jsf">Log system</h:outputLink></li>
 	                    <li><h:outputLink value="#{request.contextPath}/pages/users/list.jsf">Users</h:outputLink></li>
 	                </ul>
                 </p:fieldset>
