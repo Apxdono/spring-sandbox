@@ -1,6 +1,7 @@
 package org.apx.remote.services;
 
 import org.apx.repo.CommonRepo;
+import org.apx.repo.ICommonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ public class HelloServiceImpl implements HelloService {
 
     private static final long serialVersionUID = 8330289415699988583L;
     @Autowired
-    CommonRepo repo;
+    ICommonRepo repo;
 
     @Override
     public String sayHello() throws RemoteException {

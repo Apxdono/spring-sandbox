@@ -44,17 +44,7 @@ a {
 .menu-content{
     float: left;
     width:99%;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
 }
-
-.menu-hidden .menu-content{
-    opacity:0;
-    filter: alpha(opacity=0);
-    -webkit-transition:opacity 0.5s linear;
-    transition:opacity 0.5s linear;
-}
-
 
 .content {
     position:relative;
@@ -67,12 +57,6 @@ a {
 .content-wrap{
     width:100%;
 }
-
-/*.content-wider{*/
-    /*width:100%;*/
-    /*margin: 0 auto;*/
-    /*margin-left: -28%;*/
-/*}*/
 
 .content-expand{
     width: 30px;

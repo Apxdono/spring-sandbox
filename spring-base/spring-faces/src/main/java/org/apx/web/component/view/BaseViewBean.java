@@ -3,6 +3,7 @@ package org.apx.web.component.view;
 import org.apache.commons.lang3.StringUtils;
 import org.apx.model.DBObject;
 import org.apx.repo.CommonRepo;
+import org.apx.repo.ICommonRepo;
 import org.apx.utils.ReflectionUtils;
 import org.apx.web.component.model.LazyModel;
 import org.apx.web.component.request.NavigationBean;
@@ -25,7 +26,7 @@ public abstract class BaseViewBean<T extends DBObject> implements Serializable {
     Class<T> entityClass;
 
     @Inject
-    CommonRepo repo;
+    ICommonRepo repo;
 
     @Inject
     NavigationBean nav;

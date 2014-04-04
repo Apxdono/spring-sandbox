@@ -41,7 +41,10 @@
             <p:fieldset legend="fieldset" toggleable="true">
                 Content
             </p:fieldset>
-
+            <h:form>
+                <p:commandButton id="btn2" value="Generate a nullpointer"  ajax="true"
+                                 actionListener="#{sessionBean.makeItNull}" update="@form" immediate="true" process="@this"/>
+            </h:form>
         </ui:define>
     </ui:composition>
 </h:body>

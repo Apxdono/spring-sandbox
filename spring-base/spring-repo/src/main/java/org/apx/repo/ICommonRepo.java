@@ -45,6 +45,13 @@ public interface ICommonRepo extends Serializable {
 	<E> List<E> getResultList(Class<E> klass, String query, Parameters parameters, Paging paging, Sorting
 			sort);
 
+    long getResultCount(Class<?> klass);
+
+    long getResultCount(Class<?> klass, String query, Parameters parameters);
+
+
+
+
 	<E> Query createQuery(Class<E> klass, String query, Parameters parameters, Paging paging, Sorting
 			sort);
 }

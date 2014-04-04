@@ -78,6 +78,11 @@
 		<session-timeout>30</session-timeout>
 	</session-config>
 
+    <error-page>
+        <error-code>500</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
     <!-- JSF Mapping -->
     <servlet>
         <servlet-name>facesServlet</servlet-name>

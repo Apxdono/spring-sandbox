@@ -53,3 +53,12 @@ function sessionExpirationCheck(response,dialog){
         }
     }
 }
+
+function redirectButtonClicked(el,event){
+    console.log(el,el.form,event);
+    if(event.which == 2){
+        el.formtarget = '_blank';
+    } else {
+        el.formtarget = '_self';
+    }
+}

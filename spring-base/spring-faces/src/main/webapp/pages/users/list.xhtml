@@ -16,14 +16,14 @@
         <ui:define name="content">
             <p:fieldset legend="User list" styleClass="fieldset-group" toggleable="false" collapsed="false">
                 <h:form id="form" prependId="false">
-                    <p:dataTable id="table" value="#{userBean.lazyModel}" lazy="true" var="item" rowKey="#{item.id}"
+                    <p:dataTable id="table" value="#{userBean.lazyModel}" binding="#{userBean.lazyModel.tableRef}" lazy="true" var="item" rowKey="#{item.id}"
                                  selectionMode="single" selection="#{userBean.entity}" rows="10" paginator="true" widgetVar="listTable"
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink}
-                {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50">
+                {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,50" styleClass="fixed-table">
                         <f:facet name="header">
                             <p:outputPanel>
                                 <h:outputText value="Search all fields:" />
-                                <h:inputText id="globalFilter" onkeyup="listTable.filter()" />
+                                <p:inputText id="globalFilter" onkeyup="listTable.filter()" />
                             </p:outputPanel>
                         </f:facet>
 
@@ -39,14 +39,14 @@
                         <p:ajax event="rowSelect" update=":form:deleteDialog"/>
                         <f:facet name="footer">
                             <div style="width:100%;text-align: left;">
-                                <p:commandButton id="newButton" value="New" icon="ui-icon-document"
-                                                 action="#{navigation.newPage}">
+                                <p:commandButton id="newButton" value="New" icon="ui-icon-document"  ajax="false"
+                                                 action="#{navigation.newPage}" onclick="redirectButtonClicked(this,event);">
                                 </p:commandButton>
-                                <p:commandButton id="viewButton" value="View" icon="ui-icon-search"
+                                <p:commandButton id="viewButton" value="View" icon="ui-icon-search" ajax="false"
                                                  action="#{navigation.viewPage}">
                                     <f:attribute name="target" value="#{userBean.entity}"/>
                                 </p:commandButton>
-                                <p:commandButton id="editButton" value="Edit" icon="ui-icon-pencil"
+                                <p:commandButton id="editButton" value="Edit" icon="ui-icon-pencil" ajax="false"
                                                  action="#{navigation.editPage}">
                                     <f:attribute name="target" value="#{userBean.entity}"/>
                                 </p:commandButton>

@@ -25,7 +25,7 @@ import java.util.List;
  */
 @Repository
 @Transactional(readOnly = true)
-public class CommonRepo {
+public class CommonRepo implements ICommonRepo {
 
     EntityManager em;
 
@@ -91,6 +91,22 @@ public class CommonRepo {
             sort) {
         List<E> result = createQuery(klass,query,parameters,paging,sort).getResultList();
         return result != null ? result : Collections.<E>emptyList();
+    }
+
+    @Override
+    public long getResultCount(Class<?> klass) {
+        return getResultCount(klass,null,null);
+    }
+
+    @Override
+    public long getResultCount(Class<?> klass, String query, Parameters parameters) {
+
+        if(StringUtils.isBlank(query)){
+            query = new StringBuilder().append("SELECT COUNT(i) FROM ").append(klass.getCanonicalName()).append(" i").toString();
+        }
+        Query q = createQuery(klass,query,parameters,null,null);
+
+        return (Long)q.getSingleResult();
     }
 
     public <E> Query createQuery(Class<E> klass, String query, Parameters parameters, Paging paging, Sorting

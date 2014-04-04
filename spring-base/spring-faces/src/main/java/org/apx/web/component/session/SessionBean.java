@@ -1,6 +1,7 @@
 package org.apx.web.component.session;
 
 import org.apx.repo.CommonRepo;
+import org.apx.repo.ICommonRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,8 +11,13 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 import java.io.Serializable;
+import java.io.StringWriter;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -27,7 +33,7 @@ public class SessionBean implements Serializable {
     static Logger LOG = LoggerFactory.getLogger(SessionBean.class);
 
     @Inject
-    CommonRepo repo;
+    ICommonRepo repo;
 
     boolean renderHidden;
 
@@ -66,5 +72,20 @@ public class SessionBean implements Serializable {
 
     public void setRenderHidden(boolean renderHidden) {
         this.renderHidden = renderHidden;
+    }
+
+    public void makeItNull(){
+        String alala = "";
+        alala = null;
+        alala.toString();
+    }
+
+    public String getErrorInformation(){
+        Map sessionMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+        Throwable ex = (Throwable) sessionMap.get("javax.servlet.error.exception");
+        StringWriter stringWriter = new StringWriter();
+        ex.printStackTrace(new PrintWriter(stringWriter, true));
+        LOG.info("found exception : {}",ex);
+        return stringWriter.toString();
     }
 }
