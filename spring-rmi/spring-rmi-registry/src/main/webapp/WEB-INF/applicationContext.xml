@@ -11,35 +11,4 @@
 		<context:include-filter type="annotation" expression="javax.faces.bean.ManagedBean"/>
 	</context:component-scan>
 
-    <!--<bean id="registry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">-->
-        <!--&lt;!&ndash;<property name="host" value="localhost" />&ndash;&gt;-->
-        <!--<property name="port" value="1299"/>-->
-        <!--<property name="alwaysCreate" value="true"/>-->
-    <!--</bean>-->
-
-	<bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
-
-	<!--<bean name="/registry.json" class="com.googlecode.jsonrpc4j.spring.JsonServiceExporter">-->
-		<!--<property name="service" ref="registryService"/>-->
-		<!--<property name="serviceInterface" value="org.apx.registry.RegistryService"/>-->
-	<!--</bean>-->
-
-	<bean class="com.googlecode.jsonrpc4j.spring.AutoJsonRpcServiceExporter">
-
-	</bean>
-
-
-
-	<!--<bean id="streamingCompositeService" class="com.googlecode.jsonrpc4j.spring.CompositeJsonStreamServiceExporter">-->
-		<!--&lt;!&ndash; can be an IP, hostname or omitted to listen on all available devices &ndash;&gt;-->
-		<!--<property name="hostName" value="127.0.0.1"/>-->
-		<!--<property name="port" value="6420"/>-->
-		<!--<property name="backwardsComaptible" value="true" />-->
-		<!--<property name="services">-->
-			<!--<list>-->
-				<!--<ref bean="registryService" />-->
-			<!--</list>-->
-		<!--</property>-->
-	<!--</bean>-->
-
 </beans>

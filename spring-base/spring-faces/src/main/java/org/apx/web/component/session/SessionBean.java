@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -31,6 +32,7 @@ import java.util.Map;
 public class SessionBean implements Serializable {
 
     static Logger LOG = LoggerFactory.getLogger(SessionBean.class);
+	Locale locale;
 
     @Inject
     ICommonRepo repo;
@@ -41,6 +43,7 @@ public class SessionBean implements Serializable {
     public void init(){
         LOG.debug("Bean: {}, DB connected? {}", toString(), repo.checkConnection());
         renderHidden = false;
+	    locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
     }
 
     public String getGreeting(){
@@ -81,11 +84,30 @@ public class SessionBean implements Serializable {
     }
 
     public String getErrorInformation(){
-        Map sessionMap = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
-        Throwable ex = (Throwable) sessionMap.get("javax.servlet.error.exception");
+        Map map = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
+        Throwable ex = (Throwable) map.get("exceptionMessage");
+	    if (ex == null) return "No error info";
         StringWriter stringWriter = new StringWriter();
         ex.printStackTrace(new PrintWriter(stringWriter, true));
         LOG.info("found exception : {}",ex);
-        return stringWriter.toString();
+	    String stackTrace = stringWriter.toString();
+	    stackTrace = stackTrace.replace(System.getProperty("line.separator"), "<br/>\n")
+			    .replace("\t","&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;");
+        return stackTrace;
     }
+
+
+	public Locale getLocale() {
+		return locale;
+	}
+
+	public String getLanguage() {
+		return locale.getLanguage();
+	}
+
+	public void setLanguage(String language) {
+		locale = new Locale(language);
+		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
+
+	}
 }

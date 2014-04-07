@@ -54,6 +54,15 @@ function sessionExpirationCheck(response,dialog){
     }
 }
 
+function errorCheck(response,url,dialog){
+    if(response.status == 401){
+        sessionExpirationCheck(response,dialog);
+    }
+    if(response.status == 500){
+        location.href= url;
+    }
+}
+
 function redirectButtonClicked(el,event){
     console.log(el,el.form,event);
     if(event.which == 2){

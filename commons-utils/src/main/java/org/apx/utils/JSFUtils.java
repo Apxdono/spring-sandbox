@@ -29,16 +29,10 @@ public abstract class JSFUtils {
     }
 
     public static void redirect(FacesContext fc, String redirectPage){
-        try {
-            if(!fc.isPostback()){
-                fc.getExternalContext().redirect(redirectPage);
-            } else {
-                HttpServletResponse resp = (HttpServletResponse) fc.getExternalContext().getResponse();
-                resp.resetBuffer();
-                resp.getWriter().append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
-                        .append(String.format("<partial-response><redirect url=\"%s\"></redirect></partial-response>", redirectPage));
-                resp.
-            }
+	    try {
+		    redirectPage = fc.getExternalContext().encodeActionURL(redirectPage);
+	        fc.getExternalContext().redirect(redirectPage);
+		    fc.responseComplete();
         } catch (IOException e) {
             e.printStackTrace();
         }

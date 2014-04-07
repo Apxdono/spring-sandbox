@@ -15,10 +15,8 @@
     <ui:composition template="/WEB-INF/templates/templateMenu.xhtml">
         <ui:define name="content">
             <p:fieldset legend="Error occured" styleClass="fieldset-group fieldset-group-error">
-                <p:panel header="Error during execution. Details below. Please copy this information for developers to analyse." toggleable="true"
-                        collapsed="true">
-                    <h:outputText escape="false" value="#{sessionBean.errorInformation}"/>
-                </p:panel>
+                    <h:outputText escape="false" value="#{exceptions['error.404']}"/><br/>
+                    <h:outputText escape="false" value="#{exceptions['error.404.details']}"/><br/>
             </p:fieldset>
         </ui:define>
     </ui:composition>
