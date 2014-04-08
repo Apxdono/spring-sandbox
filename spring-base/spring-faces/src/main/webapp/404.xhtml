@@ -6,20 +6,19 @@
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-<h:head>
-    <title>Spring test app
-    </title>
-</h:head>
+    <h:head>
+        <title>Spring test app
+        </title>
+    </h:head>
 
-<h:body>
-    <ui:composition template="/WEB-INF/templates/templateMenu.xhtml">
-        <ui:define name="content">
-            <p:fieldset legend="Error occured" styleClass="fieldset-group fieldset-group-error">
+    <h:body>
+        <ui:composition template="/WEB-INF/templates/templateMenu.xhtml">
+            <ui:define name="content">
+                <p:fieldset legend="#{exceptions['error.404.legend']}" styleClass="fieldset-group fieldset-group-error">
                     <h:outputText escape="false" value="#{exceptions['error.404']}"/><br/>
                     <h:outputText escape="false" value="#{exceptions['error.404.details']}"/><br/>
-            </p:fieldset>
-        </ui:define>
-    </ui:composition>
-</h:body>
-
+                </p:fieldset>
+            </ui:define>
+        </ui:composition>
+    </h:body>
 </html>

@@ -5,61 +5,66 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core" lang="#{language.localeCode}">
-<h:head>
-    <title>Spring test app
-    </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <h:outputStylesheet library="css" name="reset.css"/>
-    <h:outputStylesheet library="css" name="common.css"/>
-    <h:outputStylesheet library="css" name="override.css"/>
-    <h:outputStylesheet library="css" name="markup.css"/>
-    <h:outputScript library="js" name="classList.js"/>
-    <h:outputScript library="js" name="cookies.min.js"/>
-    <h:outputScript library="js" name="jsutils.js"/>
-    <h:outputScript library="js" name="markup.js"/>
-</h:head>
+      xmlns:f="http://java.sun.com/jsf/core" lang="#{language.language}">
+<f:view locale="#{language.locale}">
+    <h:head>
+        <title>Spring test app</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <h:outputStylesheet library="css" name="reset.css"/>
+        <h:outputStylesheet library="css" name="markup.css"/>
+        <h:outputStylesheet library="css" name="common.css"/>
+        <h:outputStylesheet library="css" name="override.css"/>
 
-<h:body>
+        <h:outputScript library="js" name="classList.js"/>
+        <h:outputScript library="js" name="cookies.min.js"/>
+        <h:outputScript library="js" name="jsutils.js"/>
+        <h:outputScript library="js" name="markup.js"/>
+    </h:head>
 
-    <h:form id="session-form">
-        <p:confirmDialog header="Session expired" severity="alert"
-                         widgetVar="sessionDialog">
-            <f:facet name="message">
-                <h:outputText value="Your session has expired. Do you want to reload page now?" /><br/>
-                <h:outputText value="Press 'No' if you want to do it manually later." />
-            </f:facet>
-            <p:commandButton value="Yes" oncomplete="sessionDialog.hide();location.reload();"/>
-            <p:commandButton value="No" onclick="sessionDialog.hide();" type="button"/>
-        </p:confirmDialog>
+    <h:body>
+        <h:form id="session-form">
+            <p:confirmDialog header="#{exceptions['error.session.expired.legend']}" severity="alert"
+                             widgetVar="sessionDialog">
+                <f:facet name="message">
+                    <h:outputText value="#{exceptions['error.session.expired']}"/><br/>
+                    <h:outputText value="#{exceptions['error.session.expired.details']}"/>
+                </f:facet>
+                <p:commandButton value="#{commontext['text.yes']}" oncomplete="sessionDialog.hide();location.reload();"/>
+                <p:commandButton value="#{commontext['text.no']}" onclick="sessionDialog.hide();" type="button"/>
+            </p:confirmDialog>
 
-        <p:ajaxStatus onerror="errorCheck(arguments[1],'#{request.contextPath}/error.jsf',sessionDialog);"/>
-    </h:form>
+            <p:ajaxStatus onerror="errorCheck(arguments[1],'#{request.contextPath}/error.jsf',sessionDialog);"/>
+        </h:form>
 
-    <div id="page" class="page">
-        <div id="breadcrumbs" class="breadcrumbs markup-padding">
-            BREADCRUMBS
-            <h:form>
-                <h:selectOneMenu value="#{language.localeCode}" onchange="submit();"
-                                 valueChangeListener="#{language.countryLocaleCodeChanged}">
-                    <f:selectItems value="#{language.countriesInMap}" />
-                </h:selectOneMenu>
-            </h:form>
-        </div>
-        <div id="menu" class="menu #{not cookieMosta.menuVisible ? 'menu-hidden' : ''}">
-            <div class="menu-content markup-padding">
-                <ui:insert name="menu"/>
+        <div id="page" class="page">
+            <div id="breadcrumbs" class="breadcrumbs markup-padding">
+                <div style="float:left;display: inline-block">BREADCRUMBS</div>
+                <div style="float:right;display: inline-block">
+                    <span >Select language</span>
+                    <h:form style="display: inline;">
+                        <h:selectOneMenu value="#{language.language}" onchange="submit();">
+                            <f:selectItem itemValue="en" itemLabel="English"/>
+                            <f:selectItem itemValue="ru" itemLabel="Русский"/>
+                        </h:selectOneMenu>
+                    </h:form>
+                </div>
+                <div style="clear:both"></div>
+            </div>
+            <div id="menu" class="menu #{not cookieMosta.menuVisible ? 'menu-hidden' : ''}">
+                <div class="menu-content markup-padding">
+                    <ui:insert name="menu"/>
+                </div>
+            </div>
+            <div id="content" class="content #{not cookieMosta.menuVisible ? 'content-wider' : ''}">
+                <div class="content-expand" onclick="toggleMenu(this);">
+                    <div class="arrow #{not cookieMosta.menuVisible ? 'arrow-right' : 'arrow-left'}"></div>
+                </div>
+                <div class="content-wrap markup-padding">
+                    <ui:insert name="content"/>
+                </div>
             </div>
         </div>
-        <div id="content" class="content #{not cookieMosta.menuVisible ? 'content-wider' : ''}">
-            <div class="content-expand" onclick="toggleMenu(this);">
-                <div class="arrow #{not cookieMosta.menuVisible ? 'arrow-right' : 'arrow-left'}"></div>
-            </div>
-            <div class="content-wrap markup-padding">
-                <ui:insert name="content"/>
-            </div>
-        </div>
-    </div>
-</h:body>
+    </h:body>
 
+</f:view>
 </html>

@@ -15,14 +15,19 @@
             org.springframework.web.jsf.el.SpringBeanFacesELResolver
         </el-resolver>
 	    <locale-config>
-		    <default-locale>en_US</default-locale>
-		    <supported-locale>ru_RU</supported-locale>
+		    <default-locale>en</default-locale>
+            <supported-locale>en</supported-locale>
+		    <supported-locale>ru</supported-locale>
 	    </locale-config>
 
 	    <resource-bundle>
 		    <base-name>exception_messages</base-name>
 		    <var>exceptions</var>
 	    </resource-bundle>
+        <resource-bundle>
+            <base-name>common_text</base-name>
+            <var>commontext</var>
+        </resource-bundle>
     </application>
 
 </faces-config>

@@ -1,9 +1,16 @@
 package org.apx.web.component.session;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Locale;
@@ -16,43 +23,29 @@ import java.util.Map;
 @SessionScoped
 public class LanguageBean implements Serializable {
 	private static final long serialVersionUID = -1668636863042191847L;
+    static Logger LOG = LoggerFactory.getLogger(LanguageBean.class);
 
-	private String localeCode;
+    private Locale locale;
 
-	private static Map<String,Object> countries;
-	static{
-		countries = new LinkedHashMap<String,Object>();
-		countries.put("English", Locale.ENGLISH); //label, value
-		countries.put("Русский", new Locale("ru"));
-	}
+    @PostConstruct
+    public void init(){
+        locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("locale",locale);
+        LOG.debug("Setting session locale to {}",locale);
+    }
 
-	public Map<String, Object> getCountriesInMap() {
-		return countries;
-	}
+    public Locale getLocale() {
+        return locale;
+    }
 
+    public String getLanguage() {
+        return locale.getLanguage();
+    }
 
-	public String getLocaleCode() {
-		return localeCode;
-	}
-
-
-	public void setLocaleCode(String localeCode) {
-		this.localeCode = localeCode;
-	}
-
-	//value change event listener
-	public void countryLocaleCodeChanged(ValueChangeEvent e){
-
-		String newLocaleValue = e.getNewValue().toString();
-
-		//loop country map to compare the locale code
-		for (Map.Entry<String, Object> entry : countries.entrySet()) {
-
-			if(entry.getValue().toString().equals(newLocaleValue)){
-				FacesContext.getCurrentInstance()
-						.getViewRoot().setLocale((Locale)entry.getValue());
-
-			}
-		}
-	}
+    public void setLanguage(String language) {
+        this.locale = new Locale(language);
+        FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
+        FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("locale",locale);
+        LOG.debug("Setting locale to {}",locale);
+    }
 }

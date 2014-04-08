@@ -43,7 +43,10 @@
             </p:fieldset>
             <h:form>
                 <p:commandButton id="btn2" value="Generate a nullpointer"  ajax="true"
-                                 actionListener="#{sessionBean.makeItNull}" update="@form" immediate="true" process="@this"/>
+                                 actionListener="#{sessionBean.makeItNull}" update="@form" immediate="true" process="@this"/>       <br/>
+                <p:commandButton id="btn3" value="Invalidate session"  ajax="true"
+                                 actionListener="#{sessionBean.logout}" update="@form" immediate="true" process="@this"/>   <br/>
+                <h:outputLink value="#{request.contextPath}/notexists.jsf?faces-redirect=true">Non existing page</h:outputLink>
             </h:form>
         </ui:define>
     </ui:composition>

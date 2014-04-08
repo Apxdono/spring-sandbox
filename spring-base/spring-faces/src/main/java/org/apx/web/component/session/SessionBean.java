@@ -2,6 +2,7 @@ package org.apx.web.component.session;
 
 import org.apx.repo.CommonRepo;
 import org.apx.repo.ICommonRepo;
+import org.apx.web.filter.SessionExpirationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,9 +12,12 @@ import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.inject.Inject;
+import javax.naming.AuthenticationException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
@@ -96,18 +100,22 @@ public class SessionBean implements Serializable {
         return stackTrace;
     }
 
+    public void logout() {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession httpSession = (HttpSession)facesContext.getExternalContext().getSession(false);
+        httpSession.invalidate();
+        HttpServletResponse res = (HttpServletResponse) facesContext.getExternalContext().getResponse();
 
-	public Locale getLocale() {
-		return locale;
-	}
+        res.reset();
+        res.setStatus(401);
+        res.setContentType("application/json");
+        res.setContentLength(SessionExpirationFilter.ERROR_MESSAGE.getBytes().length);
+        try {
+            res.getWriter().write(SessionExpirationFilter.ERROR_MESSAGE);
+            res.flushBuffer();
+        } catch (IOException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
 
-	public String getLanguage() {
-		return locale.getLanguage();
-	}
-
-	public void setLanguage(String language) {
-		locale = new Locale(language);
-		FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
-
-	}
 }
