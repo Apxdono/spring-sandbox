@@ -12,6 +12,7 @@
     <context:annotation-config/>
     <context:component-scan base-package="org.apx.repo,org.apx.remote.services"/>
     <tx:annotation-driven transaction-manager="transactionManager"/>
+    <import resource="interaction.xml"/>
 
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor"/>
 
@@ -61,29 +62,5 @@
         <property name="registryHost" value="localhost" />
     </bean>
 
-    <!--<bean-->
-            <!--class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">-->
-        <!--<property-->
-                <!--name="targetObject">-->
-            <!--&lt;!&ndash; System.getProperties() &ndash;&gt;-->
-            <!--<bean-->
-                    <!--class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">-->
-                <!--<property name="targetClass" value="java.lang.System" />-->
-                <!--<property name="targetMethod" value="getProperties" />-->
-            <!--</bean>-->
-        <!--</property>-->
-        <!--<property-->
-                <!--name="targetMethod"-->
-                <!--value="putAll" />-->
-        <!--<property-->
-                <!--name="arguments">-->
-            <!--&lt;!&ndash; The new Properties &ndash;&gt;-->
-            <!--<util:properties>-->
-                <!--<prop-->
-                        <!--key="java.security.manager">secuManager</prop>-->
-            <!--</util:properties>-->
-        <!--</property>-->
-    <!--</bean>-->
 
-    <bean id="sysProps" class="org.apx.remote.SystemPropertiesInitializer" lazy-init="false" />
 </beans>

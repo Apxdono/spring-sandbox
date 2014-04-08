@@ -1,14 +1,9 @@
 package org.apx.registry.tests;
 
 import com.googlecode.jsonrpc4j.JsonRpcHttpClient;
-import com.googlecode.jsonrpc4j.ProxyUtil;
-import org.apx.registry.RegistryService;
 import org.junit.Test;
 
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.file.attribute.UserPrincipalLookupService;
-import java.rmi.Remote;
 
 /**
  * Created by oleg on 3/30/14.

@@ -6,6 +6,10 @@
 	http://www.springframework.org/schema/context
 	http://www.springframework.org/schema/context/spring-context-3.1.xsd">
 
+    <bean id="registry" class="org.springframework.remoting.rmi.RmiRegistryFactoryBean">
+        <!--<property name="host" value="localhost"/>-->
+        <property name="port" value="1400"/>
+    </bean>
 
 	<context:component-scan base-package="org.apx.registry">
 		<context:include-filter type="annotation" expression="javax.faces.bean.ManagedBean"/>
