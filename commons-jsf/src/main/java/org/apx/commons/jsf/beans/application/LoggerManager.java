@@ -1,13 +1,11 @@
-package org.apx.web.component.session;
+package org.apx.commons.jsf.beans.application;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.apx.utils.ReflectionUtils;
-import org.slf4j.LoggerFactory;
-import org.slf4j.impl.Log4jLoggerFactory;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import java.io.Serializable;
@@ -20,8 +18,8 @@ import java.util.*;
  * Time: 10:42
  * To change this template use File | Settings | File Templates.
  */
-//@SessionScoped
-//@ManagedBean
+@ApplicationScoped
+@ManagedBean
 public class LoggerManager implements Serializable {
     private static final long serialVersionUID = 4517931087018216609L;
 

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-fragment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+              xmlns:webfragment="http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee
+              http://java.sun.com/xml/ns/javaee/web-fragment_3_0.xsd"
+              id="commons_jsf_id" version="3.0">
+	<display-name>commons_jsf</display-name>
+	<name>commons_jsf</name>
+
+	<filter>
+		<filter-name>cacheDisableFilter</filter-name>
+		<filter-class>org.apx.commons.jsf.servlet.filters.CacheDisableFilter</filter-class>
+	</filter>
+
+	<filter>
+		<filter-name>sessionExpirationFilter</filter-name>
+		<filter-class>org.apx.commons.jsf.servlet.filters.SessionExpirationFilter</filter-class>
+	</filter>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/404.jsf</location>
+	</error-page>
+
+</web-fragment>

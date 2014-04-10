@@ -24,10 +24,6 @@
 		    <base-name>exception_messages</base-name>
 		    <var>exceptions</var>
 	    </resource-bundle>
-        <resource-bundle>
-            <base-name>common_text</base-name>
-            <var>commontext</var>
-        </resource-bundle>
     </application>
 
 </faces-config>
