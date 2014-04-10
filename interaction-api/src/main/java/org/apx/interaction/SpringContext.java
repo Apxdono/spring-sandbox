@@ -1,6 +1,7 @@
 package org.apx.interaction;
 
 import org.springframework.beans.BeansException;
+import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
@@ -16,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Scope("singleton")
-class SpringContext implements ApplicationContextAware, InitializingBean {
+class SpringContext implements ApplicationContextAware, InitializingBean, DisposableBean {
 
     private static ApplicationContext context;
 
@@ -30,6 +31,10 @@ class SpringContext implements ApplicationContextAware, InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.print("fuck yeah");
+    }
+
+    @Override
+    public void destroy() throws Exception {
+        ((RegistryResolver)context.getBean("registryResolver")).detachRegistry();
     }
 }

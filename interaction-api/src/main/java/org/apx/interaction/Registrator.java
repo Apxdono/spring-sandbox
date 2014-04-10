@@ -2,6 +2,7 @@ package org.apx.interaction;
 
 import org.springframework.beans.factory.InitializingBean;
 
+import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.HashMap;
@@ -30,7 +31,7 @@ public abstract class Registrator implements InitializingBean {
         registerCandidates();
     }
 
-    protected void registerCandidates() throws RemoteException {
+    protected void registerCandidates() throws RemoteException, AlreadyBoundException {
         for (Map.Entry<Class<? extends Remote>, Remote> candidate : queue.entrySet()) {
             ProxyUtils.bind(candidate.getKey(),candidate.getValue());
         }

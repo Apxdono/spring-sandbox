@@ -20,6 +20,7 @@ public class MyRMIServiceExporter extends RmiServiceExporter {
                                    RMIClientSocketFactory clientSocketFactory, RMIServerSocketFactory serverSocketFactory)
             throws RemoteException {
 
+
         if (registryHost != null) {
             // Host explictly specified: only lookup possible.
             if (logger.isInfoEnabled()) {

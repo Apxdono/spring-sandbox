@@ -7,6 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.rmi.RemoteException;
+import java.rmi.server.RMIClientSocketFactory;
+import java.rmi.server.RMIServerSocketFactory;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,6 +22,7 @@ import java.rmi.RemoteException;
 public class HelloServiceImpl implements HelloService {
 
     private static final long serialVersionUID = 8330289415699988583L;
+
     @Autowired
     ICommonRepo repo;
 
@@ -32,5 +36,6 @@ public class HelloServiceImpl implements HelloService {
     public int countUsers() throws RemoteException {
         Number n = (Number) repo.createQuery(Number.class,"SELECT COUNT(i) FROM User i",null,null,null).getSingleResult();
         return n.intValue();
+//        return 0;
     }
 }

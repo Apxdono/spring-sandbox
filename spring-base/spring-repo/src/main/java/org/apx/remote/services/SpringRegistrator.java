@@ -1,6 +1,7 @@
 package org.apx.remote.services;
 
 import org.apx.interaction.Registrator;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Scope("Singleton")
-public class SpringRegistrator extends Registrator {
+public class SpringRegistrator extends Registrator implements InitializingBean {
 
     @Autowired
     HelloService helloService;

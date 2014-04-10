@@ -20,8 +20,8 @@ public class TestRMI {
     @Test
     public void testRMI() throws RemoteException, NotBoundException {
         String name = "HelloService";
-        Registry registry = LocateRegistry.getRegistry("localhost",1299);
-        HelloService serv = (HelloService) registry.lookup(name);
+        Registry registry = LocateRegistry.getRegistry("localhost",1199);
+        HelloService serv = (HelloService) registry.lookup(HelloService.class.getCanonicalName());
         System.out.println("-Hello! -"+serv.sayHello());
         System.out.println("Users count: "+serv.countUsers());
     }
