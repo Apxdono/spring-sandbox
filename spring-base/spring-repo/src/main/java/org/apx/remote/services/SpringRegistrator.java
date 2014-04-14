@@ -23,6 +23,6 @@ public class SpringRegistrator extends Registrator implements InitializingBean {
 
     @Override
     public void init() {
-//        addCandidate(HelloService.class,helloService);
+        addCandidate(HelloService.class,helloService);
     }
 }

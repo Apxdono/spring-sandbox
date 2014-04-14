@@ -1,4 +1,4 @@
-package org.apx.web.handlers;
+package org.apx.commons.jsf.handlers;
 
 import javax.faces.context.ExceptionHandler;
 import javax.faces.context.ExceptionHandlerFactory;

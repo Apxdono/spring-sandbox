@@ -1,12 +1,15 @@
 package org.apx.interaction;
 
+import org.apx.interaction.enums.RemoteMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.core.convert.Property;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.Socket;
@@ -25,25 +28,19 @@ import java.util.Set;
 /**
  * Created by oleg on 3/30/14.
  */
-@Component
+@Service
 @Scope(value = "singleton")
 class RegistryResolver implements Serializable {
 	private static final long serialVersionUID = -8193258892322222939L;
 
     final Set<Class> registered = new HashSet<Class>();
 
-    private class ClientSocketFactory implements RMIClientSocketFactory {
-        @Override
-        public Socket createSocket(String host, int port) throws IOException {
-            return new Socket(host,port);
-        }
-    }
-
     @Autowired
     @Qualifier("registrySettings")
     Properties registrySettings;
 
     Registry registry;
+
 
     private Registry getRegistry() throws RemoteException {
         if(registry == null){
@@ -55,7 +52,7 @@ class RegistryResolver implements Serializable {
         }
 
         if(registry == null){
-            throw new RemoteException("Could not locate remote registry");
+            throw new RemoteException(RemoteMessage.REGISTRY_NOT_RUNNING);
         }
 
         return registry;
@@ -76,6 +73,7 @@ class RegistryResolver implements Serializable {
         for (Class aClass : registered) {
             getRegistry().unbind(aClass.getCanonicalName());
         }
+        registered.clear();
         registry = null;
     }
 

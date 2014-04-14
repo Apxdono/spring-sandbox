@@ -3,15 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:task="http://www.springframework.org/schema/task"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-2.0.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd">
 
     <context:annotation-config/>
 
     <util:properties id="registrySettings" location="classpath:interaction.properties" scope="singleton"/>
     <context:component-scan base-package="org.apx.interaction"/>
-
+    <bean id="taskManager" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler"/>
     <bean id="springContext" class="org.apx.interaction.SpringContext"/>
 
 

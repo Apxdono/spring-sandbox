@@ -1,5 +1,6 @@
 package org.apx.web.component.session;
 
+import org.apx.commons.jsf.handlers.DefaultExceptionHandler;
 import org.apx.repo.CommonRepo;
 import org.apx.repo.ICommonRepo;
 import org.apx.web.filter.SessionExpirationFilter;
@@ -89,7 +90,7 @@ public class SessionBean implements Serializable {
 
     public String getErrorInformation(){
         Map map = FacesContext.getCurrentInstance().getExternalContext().getRequestMap();
-        Throwable ex = (Throwable) map.get("exceptionMessage");
+        Throwable ex = (Throwable) map.get(DefaultExceptionHandler.ATTRIBUTE_ERROR_EXCEPTION);
 	    if (ex == null) return "No error info";
         StringWriter stringWriter = new StringWriter();
         ex.printStackTrace(new PrintWriter(stringWriter, true));
