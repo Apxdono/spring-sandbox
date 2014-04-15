@@ -52,7 +52,7 @@ class RegistryResolver implements Serializable {
         }
 
         if(registry == null){
-            throw new RemoteException(RemoteMessage.REGISTRY_NOT_RUNNING);
+            throw new RemoteException(RemoteMessage.REGISTRY_NOT_FOUND.getMessage());
         }
 
         return registry;

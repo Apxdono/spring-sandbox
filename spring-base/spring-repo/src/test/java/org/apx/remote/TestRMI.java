@@ -32,7 +32,7 @@ public class TestRMI {
         String name = "HelloService";
 
         int threadCount = 10000;
-
+        Registry r = LocateRegistry.getRegistry("localhost",1199);
         List<Runnable> list = new ArrayList<Runnable>(threadCount);
 
         final CyclicBarrier gate = new CyclicBarrier(threadCount);

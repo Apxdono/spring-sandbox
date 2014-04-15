@@ -14,15 +14,15 @@ import org.springframework.stereotype.Component;
  * To change this template use File | Settings | File Templates.
  */
 
-@Component
-@Scope("Singleton")
+//@Component
+//@Scope("Singleton")
 public class SpringRegistrator extends Registrator implements InitializingBean {
 
-    @Autowired
-    HelloService helloService;
+//    @Autowired
+//    HelloService helloService;
 
     @Override
     public void init() {
-        addCandidate(HelloService.class,helloService);
+//        addCandidate(HelloService.class,helloService);
     }
 }

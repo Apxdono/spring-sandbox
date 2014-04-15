@@ -12,7 +12,7 @@
     <context:property-placeholder location="classpath*:db.properties"/>
     <!-- enabling annotation driven configuration /-->
     <context:annotation-config/>
-    <bean id="springRegistrator" class="org.apx.remote.services.SpringRegistrator"/>
+
     <context:component-scan base-package="org.apx.repo,org.apx.remote.services"/>
 
     <tx:annotation-driven transaction-manager="transactionManager"/>

@@ -19,11 +19,10 @@ public class RegistryManagerTest {
 
     @Test
     public void testReconnect() throws InterruptedException {
-        while(!RegistryManager.inst().isActive()){
-//            System.out.println("Waiting for registry to startup");
+        while(!RegistryManager.instance().isActive()){
             Thread.sleep(2000);
         }
         Thread.sleep(10000);
-        Assert.assertTrue(RegistryManager.inst().isActive());
+        Assert.assertTrue(RegistryManager.instance().isActive());
     }
 }

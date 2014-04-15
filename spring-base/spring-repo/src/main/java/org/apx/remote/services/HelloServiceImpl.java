@@ -1,5 +1,6 @@
 package org.apx.remote.services;
 
+import org.apx.interaction.annotation.Registered;
 import org.apx.repo.CommonRepo;
 import org.apx.repo.ICommonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.rmi.server.UnicastRemoteObject;
  * To change this template use File | Settings | File Templates.
  */
 @Component(value = "HelloService")
+@Registered(interfaceClass = HelloService.class)
 public class HelloServiceImpl implements HelloService {
 
     private static final long serialVersionUID = 8330289415699988583L;

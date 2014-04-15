@@ -15,5 +15,12 @@
     <bean id="taskManager" class="org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler"/>
     <bean id="springContext" class="org.apx.interaction.SpringContext"/>
 
+    <bean id="exporter" class="org.springframework.jmx.export.MBeanExporter" lazy-init="false">
+        <property name="beans">
+            <map>
+                <entry key="bean:name=RegistryManager" value-ref="registryManager"/>
+            </map>
+        </property>
+    </bean>
 
 </beans>
