@@ -8,6 +8,7 @@
 
 	<import resource="classpath:db.xml"/>
 	<import resource="classpath:spring-jsf-scopes.xml"/>
+    <import resource="security.xml" />
 
 	<context:component-scan base-package="org.apx.web.component,org.apx.commons.jsf.beans"
 	                        scope-resolver="org.apx.spring.jsf.impl.JavaxFacesScopeMetadataResolver">

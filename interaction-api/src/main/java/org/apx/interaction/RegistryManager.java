@@ -1,9 +1,11 @@
 package org.apx.interaction;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apx.interaction.annotation.Registered;
 import org.apx.interaction.enums.InteractionPropKeys;
 import org.apx.interaction.enums.RemoteMessage;
 import org.apx.interaction.enums.RemoteResponse;
+import org.apx.utils.NumberUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.aop.framework.Advised;
@@ -42,9 +44,10 @@ import java.util.*;
 public class RegistryManager implements Serializable {
     private static final long serialVersionUID = 6349487206550409439L;
     static Logger LOG = LoggerFactory.getLogger(RegistryManager.class);
-    static int RETRY_TIMEOUT = 10;
-    static int BEAN_PORT = 1299;
     private static RegistryManager INSTANCE;
+    int retryTimeout = 10;
+    int registryPort = 1099;
+    int beansPort = 1299;
 
     @Autowired
     @Qualifier("registrySettings")
@@ -194,10 +197,12 @@ public class RegistryManager implements Serializable {
         } catch (NoSuchObjectException e) {
 
         }
+
+        int bPort = NumberUtils.parseInt(registrySettings.getProperty(InteractionPropKeys.BEAN_PORT_KEY),beansPort);
         try {
-            Remote stub = UnicastRemoteObject.exportObject(actual, BEAN_PORT);
+            Remote stub = UnicastRemoteObject.exportObject(actual, bPort);
             registry.rebind(interfaceClass.getCanonicalName(), stub);
-            synchronized (this) {
+            synchronized (registeredClasses) {
                 registeredClasses.put(interfaceClass, actual);
             }
         } catch (RemoteException e) {
@@ -238,7 +243,7 @@ public class RegistryManager implements Serializable {
             if (stub != null) {
                 UnicastRemoteObject.unexportObject(stub, true);
             }
-            synchronized (this) {
+            synchronized (registeredClasses) {
                 registeredClasses.remove(interfaceClass);
             }
             registry.unbind(interfaceClass.getCanonicalName());
@@ -271,24 +276,9 @@ public class RegistryManager implements Serializable {
     @PostConstruct
     public void init() {
         LOG.debug("Initializing Registry Manager");
-        String timeout = registrySettings.getProperty(InteractionPropKeys.TIMEOUT_KEY);
-        String bPort = registrySettings.getProperty(InteractionPropKeys.BEAN_PORT_KEY);
-        int beanPort = -1;
-        final RegistryManager self = this;
-        try {
-            beanPort = Integer.parseInt(bPort);
-        } catch (NumberFormatException nfe) {
-            LOG.error("Invalid export bean port '{}'. Switching to default.", bPort);
-        }
 
         synchronized (this) {
             INSTANCE = this;
-            if (timeout != null && !"".equals(timeout)) {
-                RETRY_TIMEOUT = Integer.parseInt(timeout);
-            }
-            if (beanPort > 0) {
-                BEAN_PORT = beanPort;
-            }
         }
 
         locateRegistry();
@@ -300,29 +290,33 @@ public class RegistryManager implements Serializable {
         synchronized (this) {
             INSTANCE = null;
         }
-        LOG.debug("Destroying Registry Manager");
+        LOG.debug("Registry Manager finalized");
     }
 
     protected boolean locateRegistry() {
         if (isActiveSimple()) {
             return true;
         }
+        String host = registrySettings.getProperty(InteractionPropKeys.HOST_KEY);
+        int port = NumberUtils.parseInt(registrySettings.getProperty(InteractionPropKeys.PORT_KEY),registryPort);
+        if (!registeredClasses.isEmpty()) {
+            deregisterBeans();
+        }
         synchronized (this) {
-            String host = registrySettings.getProperty(InteractionPropKeys.HOST_KEY);
-            int port = Integer.parseInt(registrySettings.getProperty(InteractionPropKeys.PORT_KEY));
+            taskScheduled = false;
             try {
-                taskScheduled = false;
-                if (!registeredClasses.isEmpty()) {
-                    deregisterBeans();
-                }
                 registry = LocateRegistry.getRegistry(host, port);
-                registry.list();
-                LOG.debug("RMI Registry found");
-                registerBeans();
-                return true;
             } catch (RemoteException e) {
                 LOG.error(RemoteMessage.REGISTRY_NOT_FOUND.getMessage());
-                locateRegistryLater();
+            }
+        }
+        if(isActiveSimple()){
+            LOG.debug("RMI Registry found");
+            registerBeans();
+            return true;
+        } else {
+            locateRegistryLater();
+            synchronized (this){
                 taskScheduled = true;
             }
             return false;
@@ -331,15 +325,14 @@ public class RegistryManager implements Serializable {
 
 
     protected void locateRegistryLater() {
-
         if (taskScheduled) {
             LOG.warn("Reconnect task already scheduled. Skipping.");
             return;
         }
-
-        LOG.debug("Will try to reconnect to RMI registry in {} second(s)", RETRY_TIMEOUT);
+        int timeout = NumberUtils.parseInt(registrySettings.getProperty(InteractionPropKeys.TIMEOUT_KEY),retryTimeout);
+        LOG.debug("Will try to reconnect to RMI registry in {} second(s)", timeout);
         Date d = new Date();
-        Date schedueled = new Date(d.getTime() + RETRY_TIMEOUT * 1000);
+        Date schedueled = new Date(d.getTime() + timeout * 1000);
         taskManager.schedule(new PeriodicReconnect(this), schedueled);
     }
 
@@ -362,7 +355,6 @@ public class RegistryManager implements Serializable {
 
     protected void registerBeans() {
         Map<String, Object> candidates = applicationContext.getBeansWithAnnotation(Registered.class);
-        registeredClasses.clear();
         if (candidates.isEmpty()) {
             return;
         }
@@ -386,11 +378,13 @@ public class RegistryManager implements Serializable {
                 registry.unbind(entry.getKey().getCanonicalName());
                 LOG.info("Deregistered bean {}",entry.getKey());
             } catch (RemoteException e) {
-                LOG.error("Error during bean {} deregistration. Possibly registry was shut down",entry.getKey());
+                LOG.error("Error during bean deregistration '{}' . Possibly registry was shut down",entry.getKey());
             } catch (NotBoundException e) {
-                LOG.error("Error during bean deregistration. Bean {} was not registered.",entry.getKey());
+                LOG.error("Error during bean deregistration. Bean '{}' was not registered.",entry.getKey());
             }
         }
-        registeredClasses.clear();
+        synchronized (registeredClasses){
+            registeredClasses.clear();
+        }
     }
 }

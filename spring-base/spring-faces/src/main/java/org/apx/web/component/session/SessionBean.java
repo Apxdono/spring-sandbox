@@ -6,6 +6,8 @@ import org.apx.repo.ICommonRepo;
 import org.apx.web.filter.SessionExpirationFilter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -49,6 +51,16 @@ public class SessionBean implements Serializable {
         LOG.debug("Bean: {}, DB connected? {}", toString(), repo.checkConnection());
         renderHidden = false;
 	    locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
+    }
+
+    public boolean isLoggedIn(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.isAuthenticated();
+    }
+
+    public String getUserName(){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return auth.getName();
     }
 
     public String getGreeting(){

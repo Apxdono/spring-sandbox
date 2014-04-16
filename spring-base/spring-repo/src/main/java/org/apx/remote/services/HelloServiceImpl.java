@@ -1,6 +1,7 @@
 package org.apx.remote.services;
 
 import org.apx.interaction.annotation.Registered;
+import org.apx.model.User;
 import org.apx.repo.CommonRepo;
 import org.apx.repo.ICommonRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,6 @@ public class HelloServiceImpl implements HelloService {
     @Override
     @Transactional(readOnly = true)
     public int countUsers() throws RemoteException {
-        Number n = (Number) repo.createQuery(Number.class,"SELECT COUNT(i) FROM User i",null,null,null).getSingleResult();
-        return n.intValue();
-//        return 0;
+        return (int) repo.getResultCount(User.class);
     }
 }

@@ -8,6 +8,11 @@
       xmlns:h="http://java.sun.com/jsf/html">
 <h:body>
     <ui:composition template="/templates/defaultTemplate.xhtml">
+        <ui:define name="breadcrumbs">
+            <h:outputText value="Guest, please login." rendered="#{not sessionBean.loggedIn}"/>
+            <h:outputText value="Hello, #{sessionBean.userName}" rendered="#{sessionBean.loggedIn}"/>
+        </ui:define>
+
         <ui:define name="menu">
             <h:form id="menuform" prependId="false">
                 <p:fieldset toggleable="false" collapsed="false" legend="Menu" styleClass="fieldset-group">
