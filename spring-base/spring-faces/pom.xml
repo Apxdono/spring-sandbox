@@ -123,10 +123,10 @@
         </dependency>
 
         <!-- Tomcat 6 need this -->
-        <dependency>
-            <groupId>com.sun.el</groupId>
-            <artifactId>el-ri</artifactId>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.sun.el</groupId>-->
+            <!--<artifactId>el-ri</artifactId>-->
+        <!--</dependency>-->
 
         <dependency>
             <groupId>org.primefaces</groupId>
@@ -176,7 +176,7 @@
     </dependencies>
 
     <build>
-        <finalName>spring-repo</finalName>
+        <finalName>spring-faces2</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>

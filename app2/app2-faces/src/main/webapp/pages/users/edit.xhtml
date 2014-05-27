@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:my="http://java.sun.com/jsf/composite/components"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Spring test app
+    </title>
+</h:head>
+
+<h:body>
+    <ui:composition template="/WEB-INF/templates/templateMenu.xhtml">
+        <ui:define name="content">
+            <h:form id="form" prependId="false">
+                <p:growl id="errors" sticky="true"/>
+                <p:fieldset toggleable="false" collapsed="false" legend="User info" styleClass="fieldset-group">
+                    <p:panelGrid columns="2" styleClass="form-table">
+                        <p:outputLabel value="Name" for="name"/>
+                        <p:inputText id="name" value="#{userBean.entity.displayName}" required="true"/>
+
+                        <ui:fragment>
+                            <p:outputLabel id="login-lbl" value="Login" for="login"/>
+                            <my:tip tooltip="The name to authorize in the system"/>
+                        </ui:fragment>
+                        <p:inputText id="login" value="#{userBean.entity.internalName}" required="true" label="Login"/>
+
+                        <p:outputLabel value="Is Active" for="active"/>
+                        <p:selectBooleanCheckbox id="active" value="#{userBean.entity.active}"/>
+                    </p:panelGrid>
+                </p:fieldset>
+                <p:panelGrid columns="2" styleClass="form-table actions">
+                    <f:facet name="footer" >
+                        <p:commandButton value="Save" action="#{userBean.update}" update="form" />
+                        <p:commandButton value="Cancel" action="#{navigation.viewPage}" immediate="true" process="@this">
+                            <f:attribute name="target" value="#{userBean.entity}" />
+                        </p:commandButton>
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</h:body>
+
+</html>

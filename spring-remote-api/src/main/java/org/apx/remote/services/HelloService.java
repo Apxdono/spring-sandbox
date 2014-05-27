@@ -10,4 +10,5 @@ import java.rmi.RemoteException;
 public interface HelloService extends Remote, Serializable {
     String sayHello() throws RemoteException;
     int countUsers() throws RemoteException;
+    boolean createCityAndUser(boolean fail) throws RemoteException;
 }

@@ -52,7 +52,7 @@ public class TestRMI {
 
         timer.stop();
 
-        System.out.println("All threads executed. Time: "+timer.elapsed(TimeUnit.MILLISECONDS));
+        System.out.println("All threads executed. Time: "+timer.elapsedTime(TimeUnit.MILLISECONDS));
     }
 
 

@@ -12,6 +12,7 @@ import org.springframework.aop.framework.Advised;
 import org.springframework.aop.support.AopUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Scope;
@@ -59,6 +60,9 @@ public class RegistryManager implements Serializable {
 
     @Autowired
     private ApplicationContext applicationContext;
+
+    @Value(value = "${beans.port}")
+    private int bnsPort;
 
     boolean taskScheduled = false;
 
@@ -198,7 +202,9 @@ public class RegistryManager implements Serializable {
 
         }
 
-        int bPort = NumberUtils.parseInt(registrySettings.getProperty(InteractionPropKeys.BEAN_PORT_KEY),beansPort);
+        int bPort = bnsPort;
+//        NumberUtils.parseInt(registrySettings.getProperty(InteractionPropKeys.BEAN_PORT_KEY),beansPort);
+//        bPort += new Random().nextInt() % 3;
         try {
             Remote stub = UnicastRemoteObject.exportObject(actual, bPort);
             registry.rebind(interfaceClass.getCanonicalName(), stub);

@@ -1,0 +1,198 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.apx</groupId>
+        <artifactId>app2</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>app2-faces</artifactId>
+    <packaging>war</packaging>
+    <name>app2-faces</name>
+    <url>http://maven.apache.org</url>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apx</groupId>
+            <artifactId>app2-repo</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+	    <dependency>
+		    <groupId>org.apx.spring-jsf</groupId>
+		    <artifactId>spring-jsf-scopes</artifactId>
+		    <version>1.1-SNAPSHOT</version>
+	    </dependency>
+
+	    <dependency>
+		    <groupId>org.apx.commons</groupId>
+		    <artifactId>commons-jsf</artifactId>
+		    <version>1.0-SNAPSHOT</version>
+	    </dependency>
+
+
+	    <dependency>
+		    <groupId>com.github.briandilley.jsonrpc4j</groupId>
+		    <artifactId>jsonrpc4j</artifactId>
+	    </dependency>
+
+        <!--Spring dependencies-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-core</artifactId>
+        </dependency>
+
+        <!-- UI specific dependencies-->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+
+        <!-- JSR-330 -->
+        <dependency>
+            <groupId>javax.inject</groupId>
+            <artifactId>javax.inject</artifactId>
+        </dependency>
+
+        <!-- JSF -->
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+        </dependency>
+
+
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+        </dependency>
+
+        <!-- EL -->
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>el-impl</artifactId>
+        </dependency>
+
+        <!-- Tomcat 6 need this -->
+        <!--<dependency>-->
+            <!--<groupId>com.sun.el</groupId>-->
+            <!--<artifactId>el-ri</artifactId>-->
+        <!--</dependency>-->
+
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>3.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.primefaces.themes</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>1.0.10</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3</version>
+        </dependency>
+
+
+
+
+        <!-- END UI specific dependencies-->
+
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.8.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>app2-faces</finalName>
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.6</source>
+                    <target>1.6</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <includes>
+                        <include>**/*Tests.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
